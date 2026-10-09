@@ -1,6 +1,6 @@
 const express = require('express');
 const { runProbe } = require('../services/eventloop.service');
-
+const { heavyComputation } = require('../controllers/debug.controller')
 const router = express.Router();
 
 router.get('/event-loop', async (req, res) => {
@@ -10,6 +10,11 @@ router.get('/event-loop', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+router.post(
+    "/heavy-computation",
+    heavyComputation
+);
 
 router.get('/event-loop/load', async (req, res) => {
     const levels = [1, 10, 100, 1000];
